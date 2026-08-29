@@ -24,7 +24,7 @@ echo ===================================================
 echo   GERENCIADOR DE TUNNEIS CLOUDFLARE
 echo   Desenvolvido por JSaplication   [https://jsaplication.com.br]
 echo   Codigo fonte Cloudflare tunnel  [https://github.com/cloudflare/cloudflared]
-echo   Codigo fonte JStunnel           [https://jsaplication.github.com/jstunnel]
+echo   Codigo fonte JStunnel           [https://github.com/jsaplication/jstunnel]
 echo ===================================================
 echo.
 echo [1] Autenticar Conta (Login)
