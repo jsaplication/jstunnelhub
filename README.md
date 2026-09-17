@@ -1,4 +1,4 @@
-# ☁️ Gerenciador de Túneis Cloudflare — JStunnel
+# ☁️ Gerenciador de Túneis Cloudflare — JStunnelHub
 
 Gerenciador de túneis **Cloudflare Tunnel para Windows**, desenvolvido pela **JSaplication**, com foco em facilitar a criação e execução de múltiplos túneis de forma **isolada por projeto**.
 
