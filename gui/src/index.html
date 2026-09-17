@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSTunnel</title>
+  <title>JSTunnelHub</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body class="bg-[#0a0d14] text-gray-200 font-sans antialiased h-screen flex flex-col select-none overflow-hidden">
 
@@ -15,84 +16,208 @@
       <div class="icone" style="width: 25px; height: 25px;">
         <img src="icon.ico" width="100%">
       </div>
-      JSTunnel
+      JSTunnelHub
     </div>
     <div class="flex items-center no-drag">
       <button id="btn-minimize" class="h-10 px-3 hover:bg-gray-800 text-gray-400 hover:text-white transition-colors">─</button>
+      <button id="btn-maximize" class="h-10 px-3 hover:bg-gray-800 text-gray-400 hover:text-white transition-colors">⛶</button>
       <button id="btn-close" class="h-10 px-3 hover:bg-red-600 text-gray-400 hover:text-white transition-colors">✕</button>
     </div>
   </header>
 
   <div class="flex flex-1 overflow-hidden">
     <!-- Main Content -->
-    <main class="flex-1 p-6 overflow-y-auto space-y-6">
-      <div class="flex justify-between items-center">
-        <div>
-          <h1 class="text-xl font-bold text-white">Projetos & Túneis</h1>
-          <p class="text-xs text-gray-400 mt-0.5">Processos isolados por subdomínio</p>
+    <main class="flex-1 p-6 overflow-y-auto space-y-6 topo w-full max-w-[500px]">
+
+      <div class="flex items-center gap-2 w-full">
+
+  <!-- Verificando: ocupa todo o espaço restante -->
+  <div id="auth-status-badge"
+       class="flex-1 flex items-center gap-2 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-lg text-xs">
+    <span id="auth-dot" class="w-2 h-2 rounded-full bg-gray-500"></span>
+    <span id="auth-text" class="text-gray-400 font-medium">Verificando...</span>
+  </div>
+
+  <!-- Login: tamanho normal -->
+  <button id="btn-login"
+          class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-semibold px-3 py-2 rounded-lg border border-gray-700">
+
+    <div class="icon-btn" style="margin-right: 5px;">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white"
+           aria-hidden="true"
+           xmlns="http://www.w3.org/2000/svg"
+           width="24"
+           height="24"
+           fill="none"
+           viewBox="0 0 24 24">
+        <path stroke="currentColor"
+              stroke-width="2"
+              d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+      </svg>
+    </div>
+
+    Login
+  </button>
+
+  <!-- Logout: tamanho normal -->
+  <button id="btn-logout"
+          class="hidden bg-red-950/40 hover:bg-red-900/60 text-xs text-red-400 font-semibold px-3 py-2 rounded-lg border border-red-800/50">
+    Logout
+  </button>
+
+  <!-- Refresh: tamanho normal -->
+  <button id="btn-refresh"
+          class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-semibold px-3 py-2 rounded-lg border border-gray-700">
+
+    <div class="icon-btn">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white"
+           aria-hidden="true"
+           xmlns="http://www.w3.org/2000/svg"
+           width="24"
+           height="24"
+           fill="none"
+           viewBox="0 0 24 24">
+        <path stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17.651 7.65a7.131 7.131 0 0 0-12.68 3.15M18.001 4v4h-4m-7.652 8.35a7.13 7.13 0 0 0 12.68-3.15M6 20v-4h4"/>
+      </svg>
+    </div>
+
+  </button>
+
+  <!-- New: tamanho normal -->
+  <button id="btn-open-create"
+          class="flex items-center justify-center bg-orange-600 hover:bg-orange-500 text-xs text-white font-bold px-4 py-2 rounded-lg shadow-lg shadow-orange-900/20">
+
+    <div class="icon-btn" style="margin-right: 5px;">
+      <svg class="w-6 h-6 text-gray-800 dark:text-white"
+           aria-hidden="true"
+           xmlns="http://www.w3.org/2000/svg"
+           width="24"
+           height="24"
+           fill="none"
+           viewBox="0 0 24 24">
+        <path stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 12a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1M5 12h14M5 12a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1m-2 3h.01M14 15h.01M17 9h.01M14 9h.01"/>
+      </svg>
+    </div>
+
+    <span>New Tunnel</span>
+  </button>
+
+</div>
+
+
+ <div>
+          <h1 class="text-xl font-bold text-white">Projects and Tunnels</h1>
+          <p class="text-xs text-gray-400 mt-0.5">Processes isolated by subdomain</p>
         </div>
 
-        <div class="flex items-center gap-2">
-          <div id="auth-status-badge" class="flex items-center gap-2 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-lg text-xs">
-            <span id="auth-dot" class="w-2 h-2 rounded-full bg-gray-500"></span>
-            <span id="auth-text" class="text-gray-400 font-medium">Verificando...</span>
-          </div>
-
-          <button id="btn-login" class="bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-semibold px-3 py-2 rounded-lg border border-gray-700">Login</button>
-          <button id="btn-logout" class="hidden bg-red-950/40 hover:bg-red-900/60 text-xs text-red-400 font-semibold px-3 py-2 rounded-lg border border-red-800/50">Logout</button>
-          <button id="btn-refresh" class="bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-semibold px-3 py-2 rounded-lg border border-gray-700">🔄</button>
-          <button id="btn-open-create" class="bg-orange-600 hover:bg-orange-500 text-xs text-white font-bold px-4 py-2 rounded-lg shadow-lg shadow-orange-900/20">+ Novo Túnel</button>
-        </div>
-      </div>
 
       <div id="tunnels-container" class="space-y-6">
-        <div class="text-xs text-gray-500">Carregando túneis...</div>
+        <div class="text-xs text-gray-500">Loading tunnels...</div>
       </div>
     </main>
 
-    <!-- Sidebar Logs -->
-    <aside class="w-80 bg-gray-950 border-l border-gray-800 flex flex-col">
-      <div class="p-3 border-b border-gray-800 flex justify-between items-center bg-gray-900/50">
-        <span class="text-xs font-bold text-gray-400">LOGS DO SISTEMA</span>
-        <span id="active-log-target" class="text-[10px] text-orange-400 font-mono"></span>
+    <!-- Sidebar Logs (abas: Sistema + uma por túnel) -->
+    <aside class="flex-1 min-w-0 bg-gray-950 border-l border-gray-800 flex flex-col">
+      <div class="tabs">
+        <div class="tab  items-center justify-center bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-semibold px-3 py-2 rounded-lg border border-gray-700 tab_active btn_cloudf" onclick="tabs(this)" uid="cloudflared">CloudFlare Logs</div>
+        <div class="tab  items-center justify-center bg-gray-800 hover:bg-gray-700 text-xs text-gray-300 font-semibold px-3 py-2 rounded-lg border border-gray-700 btn_metrif" onclick="tabs(this)" uid="metrics">Metrics</div>
       </div>
-      <div id="terminal-logs" class="flex-1 p-3 font-mono text-[11px] text-emerald-400/90 overflow-y-auto space-y-1 leading-relaxed bg-black/40">
-        <div class="text-gray-600 italic">[Pronto para iniciar processos...]</div>
+
+      <div id="loadmetrics_here" style="display:none;">
+        <span class="metric_avis">Click on the tunnel metric. </span>
       </div>
+      <div id="loadCloudflare_here">
+        
+      </div>
+     <!--  <div class="p-2 border-b border-gray-800 bg-gray-900/50">
+        <span class="text-[10px] font-bold text-gray-500 px-1">LOGS</span>
+        <div id="log-tabs" class="flex flex-wrap gap-1 mt-1 px-1"></div>
+      </div>
+      <div id="log-panels" class="flex-1 relative overflow-hidden bg-black/40">
+        
+      </div> -->
     </aside>
   </div>
 
   <!-- Modal Criar Túnel -->
   <div id="modal-create" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-96 space-y-4 shadow-2xl">
-      <h3 class="text-base font-bold text-white">Criar Novo Túnel</h3>
+    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-96 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <h3 class="text-base font-bold text-white">Create New Tunnel</h3>
       <div id="create-error" class="hidden text-xs text-red-400 bg-red-950/50 border border-red-800/50 p-2.5 rounded-lg"></div>
 
       <div>
-        <label class="text-xs text-gray-400 block mb-1">Domínio Cloudflare</label>
-        <input id="create-domain" type="text" placeholder="meusite.com" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
+        <label class="text-xs text-gray-400 block mb-1">Project Name</label>
+        <input id="create-name" type="text" placeholder="My site" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
       </div>
+
+
       <div>
+        <label class="text-xs text-gray-400 block mb-1">Domain</label>
+        <input id="create-domain" type="text" placeholder="mysite.com / test.mysite.com" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
+      </div>
+      <!-- <div>
         <label class="text-xs text-gray-400 block mb-1">Subdomínio (Nome do Projeto)</label>
         <input id="create-name" type="text" placeholder="dev1" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
-      </div>
+      </div> -->
       <div class="flex gap-2">
         <div class="w-2/3">
-          <label class="text-xs text-gray-400 block mb-1">Porta Local</label>
+          <label class="text-xs text-gray-400 block mb-1">Local port</label>
           <input id="create-port" type="number" value="3000" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
         </div>
         <div class="w-1/3">
-          <label class="text-xs text-gray-400 block mb-1">Protocolo</label>
+          <label class="text-xs text-gray-400 block mb-1">Protocol</label>
           <select id="create-proto" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
             <option value="http">http</option>
             <option value="https">https</option>
           </select>
         </div>
       </div>
+
+      <!-- Seleção de Projeto -->
+      <div class="space-y-2 pt-3 border-t border-gray-800">
+        <label class="text-xs text-gray-400 font-semibold block">Project Folder (optional)</label>
+        <div class="flex gap-2">
+          <input id="create-project-path" type="text" readonly
+            class="flex-1 bg-gray-950 border border-gray-800 text-gray-300 text-xs rounded-lg px-2.5 py-2 truncate"
+            placeholder="No folder selected">
+          <button id="btn-select-project-create" type="button"
+            class="text-xs px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-orange-400 font-semibold whitespace-nowrap">
+            Select
+          </button>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 block mb-1">Project Type</label>
+          <select id="create-project-type-select" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
+            <option value="other">Unidentified / Other</option>
+            <option value="php">PHP</option>
+            <option value="node">Node.js</option>
+            <option value="python">Python</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 block mb-1">Startup Command</label>
+          <select id="create-cmd-preset" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500 mb-2"></select>
+          <input id="create-run-command" type="text"
+            class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white font-mono focus:outline-none focus:border-orange-500"
+            placeholder="ex: php -S localhost:{PORT}">
+          <p class="text-[10px] text-gray-500 mt-1">The ({PORT}) port is already populated with the port configured above.</p>
+        </div>
+      </div>
+
       <div class="flex justify-end gap-2 pt-2">
-        <button id="btn-cancel-create" class="px-3 py-1.5 text-xs text-gray-400 hover:text-white">Cancelar</button>
+        <button id="btn-cancel-create" class="px-3 py-1.5 text-xs text-gray-400 hover:text-white">Cancel</button>
         <button id="btn-submit-create" class="bg-orange-600 hover:bg-orange-500 text-xs text-white px-4 py-1.5 rounded-lg font-bold">
-          <span id="create-btn-text">Criar</span>
+          <span id="create-btn-text">Create</span>
         </button>
       </div>
     </div>
@@ -100,25 +225,25 @@
 
   <!-- Modal Editar Túnel -->
   <div id="modal-edit" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-96 space-y-4 shadow-2xl">
-      <h3 class="text-base font-bold text-white">Editar Projeto</h3>
+    <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl w-96 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <h3 class="text-base font-bold text-white">Edit Project</h3>
       <div id="edit-error" class="hidden text-xs text-red-400 bg-red-950/50 border border-red-800/50 p-2.5 rounded-lg"></div>
 
       <input id="edit-domain" type="hidden">
       <input id="edit-name" type="hidden">
 
       <div>
-        <label class="text-xs text-gray-500 block mb-1">URL Pública</label>
+        <label class="text-xs text-gray-500 block mb-1">Domain</label>
         <div id="edit-host-display" class="text-xs text-orange-400 font-mono bg-black/40 p-2 rounded-lg border border-gray-800"></div>
       </div>
 
       <div class="flex gap-2">
         <div class="w-2/3">
-          <label class="text-xs text-gray-400 block mb-1">Porta Local</label>
+          <label class="text-xs text-gray-400 block mb-1">Local port</label>
           <input id="edit-port" type="number" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
         </div>
         <div class="w-1/3">
-          <label class="text-xs text-gray-400 block mb-1">Protocolo</label>
+          <label class="text-xs text-gray-400 block mb-1">Protocol</label>
           <select id="edit-proto" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
             <option value="http">http</option>
             <option value="https">https</option>
@@ -126,9 +251,41 @@
         </div>
       </div>
 
+      <!-- Seleção de Projeto -->
+      <div class="space-y-2 pt-3 border-t border-gray-800">
+        <label class="text-xs text-gray-400 font-semibold block">Project Folder (optional)</label>
+        <div class="flex gap-2">
+          <input id="edit-project-path" type="text" readonly
+            class="flex-1 bg-gray-950 border border-gray-800 text-gray-300 text-xs rounded-lg px-2.5 py-2 truncate"
+            placeholder="Nenhuma pasta selecionada">
+          <button id="btn-select-project-edit" type="button"
+            class="text-xs px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 text-orange-400 font-semibold whitespace-nowrap">
+            Select
+          </button>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 block mb-1">Project Type</label>
+          <select id="edit-project-type-select" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500">
+            <option value="other">Unidentified / Other</option>
+            <option value="php">PHP</option>
+            <option value="node">Node.js</option>
+            <option value="python">Python</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="text-xs text-gray-400 block mb-1">Startup Command</label>
+          <select id="edit-cmd-preset" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-orange-500 mb-2"></select>
+          <input id="edit-run-command" type="text"
+            class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2 text-xs text-white font-mono focus:outline-none focus:border-orange-500"
+            placeholder="ex: npm run dev">
+        </div>
+      </div>
+
       <div class="flex justify-end gap-2 pt-2">
-        <button id="btn-cancel-edit" class="px-3 py-1.5 text-xs text-gray-400 hover:text-white">Cancelar</button>
-        <button id="btn-submit-edit" class="bg-orange-600 hover:bg-orange-500 text-xs text-white px-4 py-1.5 rounded-lg font-bold">Salvar Alterações</button>
+        <button id="btn-cancel-edit" class="px-3 py-1.5 text-xs text-gray-400 hover:text-white">Cancel</button>
+        <button id="btn-submit-edit" class="bg-orange-600 hover:bg-orange-500 text-xs text-white px-4 py-1.5 rounded-lg font-bold">Save Changes</button>
       </div>
     </div>
   </div>
@@ -137,7 +294,7 @@
     .drag { -webkit-app-region: drag; }
     .no-drag { -webkit-app-region: no-drag; }
   </style>
-
+<script src="https://cdn.jsdelivr.net/npm/psl@1.9.0/dist/psl.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

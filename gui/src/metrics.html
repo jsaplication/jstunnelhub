@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSTunnelHub Monitor</title>
+<link rel="stylesheet" type="text/css" href="metrics.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+
+<header>
+    <div class="brand">
+        <div class="logo">☁</div>
+        <div>
+            <h1><div id="my_domain" style="color: #0080ff !important"></div></h1>
+            <div class="subtitle">
+                Real-time monitoring of the Cloudflare Tunnel
+            </div>
+        </div>
+    </div>
+
+
+<div class="status">
+    <span class="dot" id="statusDot"></span>
+    <span id="statusText">Connecting...</span>
+</div>
+
+
+</header>
+
+
+
+
+
+
+<!-- CARDS PRINCIPAIS -->
+
+<div class="container-left">
+<div class="cards">
+
+
+<div class="card">
+    <div class="card-label">TUNNEL STATUS</div>
+    <div class="card-value green" id="tunnelStatus">--</div>
+    <div class="card-info" id="uptime">Uptime: --</div>
+</div>
+
+<div class="card">
+    <div class="card-label">CONNECTIONS HA</div>
+    <div class="card-value blue" id="haConnections">--</div>
+    <div class="card-info">Conexões ativas</div>
+</div>
+
+<div class="card">
+    <div class="card-label">REQUESTS</div>
+    <div class="card-value purple" id="requests">--</div>
+    <div class="card-info">Total through the tunnel</div>
+</div>
+
+<div class="card">
+    <div class="card-label">ERROS</div>
+    <div class="card-value green" id="errors">--</div>
+    <div class="card-info">Proxy errors</div>
+</div>
+
+
+</div>
+
+<!-- REDE -->
+
+<div class="section">
+
+
+<div class="section-title">🌐 Connections QUIC</div>
+
+<div class="connections" id="connections">
+    <div class="connection">
+        Loading...
+    </div>
+</div>
+
+
+</div>
+
+<!-- GRÁFICOS -->
+
+<div class="section">
+
+
+<div class="section-title">📊 Traffic and latency</div>
+
+<div class="charts">
+
+    <div class="chart-box">
+        <canvas id="trafficChart"></canvas>
+    </div>
+
+    <div class="chart-box">
+        <canvas id="rttChart"></canvas>
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- SISTEMA -->
+
+<div class="section">
+
+
+<div class="section-title">🖥️ Runtime / System</div>
+
+<div class="grid-2">
+
+    <div>
+
+        <div class="metric-row">
+            <span class="metric-name">Cloudflared Version</span>
+            <span class="metric-value" id="version">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Go</span>
+            <span class="metric-value" id="goVersion">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Goroutines</span>
+            <span class="metric-value" id="goroutines">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Threads</span>
+            <span class="metric-value" id="threads">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">GOMAXPROCS</span>
+            <span class="metric-value" id="gomaxprocs">--</span>
+        </div>
+
+    </div>
+
+    <div>
+
+        <div class="metric-row">
+            <span class="metric-name">Resident memory</span>
+            <span class="metric-value" id="memory">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Heap</span>
+            <span class="metric-value" id="heap">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Objects on the Heap</span>
+            <span class="metric-value" id="heapObjects">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">File Descriptors</span>
+            <span class="metric-value" id="fds">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Accumulated CPU</span>
+            <span class="metric-value" id="cpu">--</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- TÚNEL -->
+
+<div class="section">
+
+
+<div class="section-title">☁️ Tunnel information</div>
+
+<div class="grid-2">
+
+    <div>
+
+        <div class="metric-row">
+            <span class="metric-name">Concurrent requests</span>
+            <span class="metric-value" id="concurrent">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">TCP Sessions</span>
+            <span class="metric-value" id="tcpSessions">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">UDP Sessions</span>
+            <span class="metric-value" id="udpSessions">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">HTTP 200 Responses</span>
+            <span class="metric-value green" id="http200">--</span>
+        </div>
+
+    </div>
+
+    <div>
+
+        <div class="metric-row">
+            <span class="metric-name">HTTP 404 responses</span>
+            <span class="metric-value yellow" id="http404">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Settings sent</span>
+            <span class="metric-value" id="configPushes">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Configuration errors</span>
+            <span class="metric-value green" id="configErrors">--</span>
+        </div>
+
+        <div class="metric-row">
+            <span class="metric-name">Tunnel logging</span>
+            <span class="metric-value" id="registers">--</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<!-- TODAS AS MÉTRICAS -->
+
+<div class="section">
+
+
+<div class="section-title">📋 All Prometheus metrics</div>
+
+<div class="table-wrap">
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Type</th>
+                <th>Labels</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+
+        <tbody id="metricsTable">
+        </tbody>
+
+    </table>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<div class="container-right">
+    <div class="section-title">☱ Project Logs <span id="project_nam"></span> <span id="status_online_projetct">Offline</span></div>
+    <div class="scrolllogs"></div>
+</div>
+
+</div>
+
+<script type="text/javascript" src="metrics.js"></script>
+</body>
+</html>

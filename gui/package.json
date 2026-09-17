@@ -1,5 +1,5 @@
 {
-  "name": "jstunnel",
+  "name": "jstunnelhub",
   "version": "1.0.0",
   "description": "Dashboard Futurista para Gerenciamento de Túneis Cloudflare",
   "main": "main.js",
@@ -9,7 +9,8 @@
   },
   "build": {
     "appId": "com.jsaplication.jstunnel",
-    "productName": "JSTunnel",
+    "npmRebuild": false,
+    "productName": "JSTunnelHub",
     "directories": {
       "output": "dist"
     },
@@ -31,11 +32,15 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "JSTunnel"
+      "shortcutName": "JSTunnelHub"
     }
   },
   "devDependencies": {
     "electron": "^28.0.0",
     "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "@homebridge/node-pty-prebuilt-multiarch": "^0.14.1",
+    "psl": "^1.15.0"
   }
 }
